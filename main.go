@@ -42,8 +42,6 @@ func main() {
 	var domainParts = strings.Split(domain, ".")
 	var zoneName = strings.Join(domainParts[len(domainParts)-2:], ".")
 
-	/**/
-
 	configuredIP, err := lookupDominDnsIP(domain)
 	if err != nil {
 		exitError(err)
@@ -101,7 +99,6 @@ func lookupIPUsingAkamai() (string, error) {
 }
 
 func updateCloudFlare(apiToken string, domain string, zone string, ipAddress string) {
-	/**/
 	api, err := cloudflare.NewWithAPIToken(apiToken)
 	if err != nil {
 		exitError(err)
@@ -136,6 +133,4 @@ func updateCloudFlare(apiToken string, domain string, zone string, ipAddress str
 	api.UpdateDNSRecord(context.Background(), zoneID, rec.ID, rec)
 
 	fmt.Printf("NEW: %s: %s\n", rec.Name, rec.Content)
-
-	/**/
 }
