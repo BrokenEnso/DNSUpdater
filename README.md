@@ -10,7 +10,13 @@ DNSUpdater uses API Tokens and not API Keys. The API Token you setup for this re
 
 ## Example Usage
 ```shell
-dnsupdater -c=myconfig.json
+dnsupdater -config myconfig.json
+```
+
+## Cron Example
+```shell
+#IP Monitoring & Updateing
+0 */6 * * * /home/user/jobs/dnsupdater/dnsupdater -config /home/user/jobs/dnsupdater/config.json
 ```
 
 ## License
