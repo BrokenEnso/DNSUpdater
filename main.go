@@ -109,11 +109,13 @@ func updateCloudFlare(apiToken string, domain string, zone string, ipAddress str
 		exitError(err)
 	}
 
+	var zoneResource = cloudflare.ZoneIdentifier(zoneID)
+
 	// Fetch records of any type with name "foo.example.com"
 	// The name must be fully-qualified
-	foo := cloudflare.DNSRecord{Name: domain, Type: "A"}
+	foo := cloudflare.ListDNSRecordsParams{Name: domain, Type: "A"}
 
-	recs, err := api.DNSRecords(context.Background(), zoneID, foo)
+	recs, _, err := api.ListDNSRecords(context.Background(), zoneResource, foo)
 	if err != nil {
 		exitError(err)
 	}
@@ -123,14 +125,14 @@ func updateCloudFlare(apiToken string, domain string, zone string, ipAddress str
 	if len(recs) == 1 {
 		rec = recs[0]
 	} else {
-		fmt.Println("Cloudflare: No DNS  record found")
+		fmt.Println("Cloudflare: No DNS record found")
 	}
 
 	fmt.Printf("OLD: %s: %s\n", rec.Name, rec.Content)
 
-	rec.Content = ipAddress
+	var update = cloudflare.UpdateDNSRecordParams{ID: rec.ID, Content: ipAddress}
 
-	api.UpdateDNSRecord(context.Background(), zoneID, rec.ID, rec)
+	api.UpdateDNSRecord(context.Background(), zoneResource, update)
 
-	fmt.Printf("NEW: %s: %s\n", rec.Name, rec.Content)
+	fmt.Printf("NEW: %s: %s\n", rec.Name, update.Content)
 }
