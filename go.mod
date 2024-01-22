@@ -2,7 +2,7 @@ module github.com/BrokenEnso/DNSUpdater
 
 go 1.20
 
-require github.com/cloudflare/cloudflare-go v0.85.0
+require github.com/cloudflare/cloudflare-go v0.86.0
 
 require (
 	github.com/goccy/go-json v0.10.2 // indirect
