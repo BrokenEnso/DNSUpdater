@@ -4,7 +4,7 @@ go 1.21
 
 toolchain go1.22.0
 
-require github.com/cloudflare/cloudflare-go v0.112.0
+require github.com/cloudflare/cloudflare-go v0.113.0
 
 require (
 	github.com/goccy/go-json v0.10.4 // indirect
